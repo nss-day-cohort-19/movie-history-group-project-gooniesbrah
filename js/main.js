@@ -6,6 +6,7 @@ let $ = require('jquery'),
     db = require("./db-interactions"),
 		Handlebars=require("hbsfy/runtime"),
 		cardsTemplate = require("../templates/cards.hbs"),
+        watchListTemplate = require("../templates/watch.hbs"),
     // templates = require("./dom-builder"),
     user = require("./user");
 
@@ -28,7 +29,7 @@ $("#find-new-movies").click(function(){
 	.then(function(movieData){
 		console.log(movieData);
 		newMovieObj = movieData.results[0];
-	
+
 	db.getActors(newMovieObj.id)
 	.then(function(actors){
 		newMovieObj.cast = [];
@@ -37,8 +38,14 @@ $("#find-new-movies").click(function(){
 		}
 		console.log("movie data", newMovieObj);
 		console.log("movie data", newMovieObj.cast[0]);
+
+
+        $(".movies").html(cardsTemplate(newMovieObj));
+        $(".butts").click((event) =>{
+            addtoWatchList(event, newMovieObj);
+            });
 	});
-	$(".movies").html(cardsTemplate(newMovieObj));
+
 
 	});
 });
@@ -47,3 +54,16 @@ $("#logout").click(function(){
   console.log("logout clicked");
   user.logOut();
 });
+
+function addtoWatchList(event, newMovieObj){
+
+
+    let watchlist = watchListTemplate(newMovieObj);
+
+    console.log("this is the new movie", newMovieObj);
+    $(".movies").html(watchListTemplate(newMovieObj));
+    $(".untrack").click((event) =>{
+        $(".movies").remove();
+    });
+    return pushToDataBase(newMovieObj);
+}

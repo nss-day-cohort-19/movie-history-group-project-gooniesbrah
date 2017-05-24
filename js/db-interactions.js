@@ -27,8 +27,24 @@ function getActors(movieID) {
 	});
 }
 
+function pushToDataBase(newMovieObj) {
+	console.log("add Song", newMovieObj);
+	return new Promise(function(resolve, reject){
+		$.ajax({
+			url: `${firebase.getFBsettings().databaseURL}/songs.json`,
+			type: 'POST',
+			data: JSON.stringify(newMovieObj),
+			dataType: 'json'
+		}).done(function(newMovieObj){
+			resolve(newMovieObj);
+		});
+	});
+}
+
+
 
 module.exports = {
 	getMovie,
-	getActors
+	getActors,
+    pushToDataBase
 };
