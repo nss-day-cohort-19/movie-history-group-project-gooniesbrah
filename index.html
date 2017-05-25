@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Movie History</title>
+    <link rel="stylesheet" type="text/css" href="lib/node_modules/bootstrap-star-rating/css/star-rating.min.css">
     <link rel="stylesheet" type="text/css" href="lib/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
@@ -9,32 +10,38 @@
 	<div class="container">
 
 		<nav class="navbar row">
-			<label>Search: </label>
+			<label>Search:</label>
 			<input type="text" class="col-md-5" id="input">
 			<a href="#" id="auth-btn">Login</a>
 		</nav>
 
 		<div class="row">
 			<h1 class="col-md-4">Movie History</h1>
-			<p class="col-md-4 align-middle text-center">Breadcrumbs eventurally</p>
+
 		</div>
 
 		<div class="row">
-			<p class ="col-md-2 text-center align-middle" id="find-new-movies">Show Untracked<p>
-			<p class ="col-md-2 text-center align-middle" id="show-unwatched-movies">Show Unwatched<p>
-			<p class ="col-md-2 text-center align-middle" id="show-watched-movies">Show Watched<p>
-			<p class ="col-md-2 text-center align-middle" id="show-favorite-movies">Show Favorites<p>
+            <p class ="col-md-2 text-center align-middle toggle-butt" id="find-new-movies">Show Untracked</p>
+            <p class ="col-md-2 text-center align-middle toggle-butt" id="show-unwatched-movies">Show Unwatched</p>
+            <p class ="col-md-2 text-center align-middle toggle-butt" id="show-watched-movies">Show Watched</p>
+            <p class ="col-md-2 text-center align-middle toggle-butt" id="show-favorite-movies">Show Favorites</p>
 		</div>
+		<div id="showSlider" class="">
+
+      <label for="ratings-range">Stars:</label>
+      <input type="range" id="sliderValue" name="ratings-range" min="1" max="10" step="1" value="1">
+
+    </div>
 
 		<div class="movies row"></div>
 
-	
-	
+
+
 
 
 	</div>  <!--End Container-->
 <script src="lib/node_modules/jquery/dist/jquery.js"></script>
-<script src="lib/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<!--<script src="lib/node_modules/bootstrap/dist/js/bootstrap.js"></script>-->
 <script src="dist/app.js"></script>
 </body>
 </html>

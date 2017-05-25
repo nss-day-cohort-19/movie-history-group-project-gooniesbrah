@@ -18,6 +18,7 @@
   "homepage": "",
   "devDependencies": {
     "bootstrap": "^3.3.7",
+    "bootstrap-star-rating": "^4.0.2",
     "browserify": "^14.3.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
