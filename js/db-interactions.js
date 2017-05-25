@@ -30,7 +30,7 @@ function getActors(movieID) {
 function pushToFirebase(movieObj, userID){
 	return new Promise(function(resolve, reject){
 		$.ajax({
-			url: `${firebase.getFBsettings().databaseURL}/${userID}/movies.json`,
+			url: `${firebase.getFBsettings().databaseURL}/${userID}/movies/.json`,
 			type: "POST",
 			data: JSON.stringify(movieObj),
 			dataType: "json"
@@ -53,10 +53,49 @@ function pushToFirebaseArray(movieID, userID){
 	});
 }
 
+function pullWatchFromFirebase(userID){
+	return new Promise(function(resolve, reject){
+		$.ajax({
+			url: `${firebase.getFBsettings().databaseURL}/${userID}/movies.json`,
+			type: "GET",
+			dataType: "json"
+		}).done(function(data){
+			resolve(data);
+		});
+	});
+}
+//not deleting yet
+function deleteWatchedMovie(firebaseKey, userID) {
+    return new Promise (function(resolve, reject){
+        $.ajax({
+            url: `${firebase.getFBsettings().databaseURL}/${userID}/movies/${firebaseKey}.json`,
+            method: "DELETE"
+        }).done(function(){
+            resolve();
+        });
+    });
+}
+//not updating to FB
+function updateStars(firebaseKey, starValue, userID) {
+    return new Promise (function(resolve, reject){
+        $.ajax({
+            url: `${firebase.getFBsettings().databaseURL}/${userID}/movies/${firebaseKey}.json`,
+            type: "PATCH",
+            data: JSON.stringify(starValue)
+        }).done(function(data){
+            console.log("did this resolve");
+            resolve(data);
+        });
+    });
+}
+
 
 module.exports = {
 	getMovie,
 	getActors,
 	pushToFirebase,
-	pushToFirebaseArray
+	pushToFirebaseArray,
+    pullWatchFromFirebase,
+    deleteWatchedMovie,
+    updateStars
 };

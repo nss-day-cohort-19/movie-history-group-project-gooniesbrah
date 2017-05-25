@@ -1,12 +1,16 @@
-<div>
+<div id="{{key}}">
+   <button id="watch--{{id}}" class="watch-list-delete">Remove Card</button>
     <h2> {{title}}</h2>
+    <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}">
+    <h5>{{overview}}</h5>
     <p>{{release_date}}</p>
     <p> Starring </p>
     {{#each cast}}
     <p>{{name}} as {{character}}</p>
     {{/each}}
-
-    <select> 
+    <input id="star--{{key}}" type="text" class="rating" data-size="xs" >
+<!--
+    <select>
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -19,4 +23,5 @@
         <option value="9">9</option>
         <option value="10">10</option>
     </select>
-</div>  
+-->
+</div>
