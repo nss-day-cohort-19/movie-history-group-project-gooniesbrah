@@ -75,15 +75,15 @@ var addToWatchList = function(movieElementArray, event){
 	var titleToPush = {};
 	movieElementArray.forEach(function(movie){
 		if(movieTitle === movie.title){
-			console.log("COOL GUY");
+			titleToPush = movie;
 		}
 	});
 	console.log("titleToPush", titleToPush);
-	// db.pushToFirebaseArray(movie.id, userID);
-	// db.pushToFirebase(movie, userID)
-	// .then(function(response){
-	// 	console.log(response);
-	// 	});
+	db.pushToFirebaseArray(titleToPush, userID);
+	db.pushToFirebase(titleToPush, userID)
+	.then(function(response){
+		console.log(response);
+		});
 };
 
 
