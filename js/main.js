@@ -2,8 +2,7 @@
 
 console.log("MAIN.JS");
 
-let $ = require('jquery'),
-    db = require("./db-interactions"),
+let db = require("./db-interactions"),
 		Handlebars=require("hbsfy/runtime"),
 		unwatchedcardsTemplate = require("../templates/unwatched-cards.hbs"),
 		watchedcardsTemplate = require("../templates/watched-cards.hbs"),
@@ -31,23 +30,38 @@ $("#auth-btn").click(function(){
 
 //When find new movies is clicked - get matching title from movie database and display on page
 $("#find-new-movies").click(function(){
-
+	$(".movies").html("");
 	var inputItem = $("#input").val();
 	db.getMovie(inputItem)
 	.then(function(movieData){
-		newMovieObj = movieData.results[0];
-		db.getActors(newMovieObj.id)
-		.then(function(actors){
-			newMovieObj.cast = [];
-			for (var i=0; i<5;i++){
-				newMovieObj.cast.push(actors.cast[i]);
-			}
-			newMovieObj.starValue = 0;
-			
-			$(".movies").html(unwatchedcardsTemplate(newMovieObj));
-		});
+		newMovieObj.results = movieData.results;
+		getActors(newMovieObj);
 	});
 });
+
+var getActors = function(movieObj){
+	movieObj.results.forEach(function(element){
+		element.cast = [];
+			db.getActors(element.id)
+			.then(function(actors){
+				if(actors.cast.length > 5){
+					for(var i=0;i<5;i++){
+						element.cast.push(actors.cast[i]);
+					}
+				}else if (actors.cast.length < 5){
+					for(var j=0;j<actors.cast.length;j++){
+						element.cast.push(actors.cast[j]);
+					}
+				}
+			$(".movies").append(unwatchedcardsTemplate(element));
+			});
+			console.log(element);
+	});
+};
+
+
+
+
 
 
 $(document).on("click", '.add-to-watchlist', function(event){
