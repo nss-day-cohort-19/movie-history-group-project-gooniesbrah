@@ -40,7 +40,9 @@ $("#find-new-movies").click(function(){
 });
 
 var getActors = function(movieObj){
+	var movieElementArray = [];
 	movieObj.results.forEach(function(element){
+		movieElementArray.push(element);
 		element.cast = [];
 			db.getActors(element.id)
 			.then(function(actors){
@@ -55,7 +57,9 @@ var getActors = function(movieObj){
 				}
 			$(".movies").append(unwatchedcardsTemplate(element));
 			});
-			console.log(element);
+		});
+		$(document).on("click", ".add-to-watchlist", function(){
+				addToWatchList(movieElementArray, event);
 	});
 };
 
@@ -64,14 +68,23 @@ var getActors = function(movieObj){
 
 
 
-$(document).on("click", '.add-to-watchlist', function(event){
+var addToWatchList = function(movieElementArray, event){
+	console.log("movieElementArray", movieElementArray);
 	var userID = user.getUser();
-	db.pushToFirebaseArray(newMovieObj.id, userID);
-	db.pushToFirebase(newMovieObj, userID)
-	.then(function(response){
-		console.log(response);
-		});
-});
+	var movieTitle = event.target.closest("div").querySelector(".movie-title").innerHTML;
+	var titleToPush = {};
+	movieElementArray.forEach(function(movie){
+		if(movieTitle === movie.title){
+			console.log("COOL GUY");
+		}
+	});
+	console.log("titleToPush", titleToPush);
+	// db.pushToFirebaseArray(movie.id, userID);
+	// db.pushToFirebase(movie, userID)
+	// .then(function(response){
+	// 	console.log(response);
+	// 	});
+};
 
 
 $("#logout").click(function(){
