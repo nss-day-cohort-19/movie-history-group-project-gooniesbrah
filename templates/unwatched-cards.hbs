@@ -1,9 +1,11 @@
 <div>
-    <h2> {{title}}</h2>
-    <p>{{release_date}}</p>
-    <p> Starring </p>
-    {{#each cast}}
-    <p>{{name}} as {{character}}</p>
-    {{/each}}
+   <h2 class="title">{{title}}</h2>
+   <p class="poster"><img src="https://image.tmdb.org/t/p/w500/{{poster_path}}"></p>
+   <h5 class="overview">{{overview}}</h5>
+   <p class="release">{{release_date}}</p>
+   <p> Starring </p>
+   {{#each cast}}
+   <p class="actors">{{name}} as {{character}}</p>
+   {{/each}}
 <button class="add-to-watchlist">Add To Watchlist</button>
-</div>      
+</div>
